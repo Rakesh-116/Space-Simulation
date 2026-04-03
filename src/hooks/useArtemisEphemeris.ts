@@ -67,15 +67,25 @@ export const useArtemisEphemeris = (url: string | null) => {
         if (!res.ok) {
           throw new Error(`Failed to load ephemeris (${res.status})`)
         }
-        const buffer = await res.arrayBuffer()
-        const zipped = new Uint8Array(buffer)
-        const files = unzipSync(zipped)
-        const oemEntry = Object.keys(files).find((name) => name.endsWith('.oem')) ?? ''
-        if (!oemEntry) {
-          throw new Error('No OEM file found in ephemeris ZIP')
+
+        let parsed: EphemerisData | null = null
+        if (url.toLowerCase().endsWith('.zip')) {
+          const buffer = await res.arrayBuffer()
+          const zipped = new Uint8Array(buffer)
+          const files = unzipSync(zipped)
+          const oemEntry =
+            Object.keys(files).find((name) => name.endsWith('.oem') || name.endsWith('.asc')) ??
+            ''
+          if (!oemEntry) {
+            throw new Error('No OEM file found in ephemeris ZIP')
+          }
+          const text = new TextDecoder().decode(files[oemEntry])
+          parsed = parseOem(text)
+        } else {
+          const text = await res.text()
+          parsed = parseOem(text)
         }
-        const text = new TextDecoder().decode(files[oemEntry])
-        const parsed = parseOem(text)
+
         if (!parsed) {
           throw new Error('No ephemeris data found in OEM file')
         }

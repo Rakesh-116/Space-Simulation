@@ -12,7 +12,8 @@ import { useMissionTime } from '../hooks/useMissionTime'
 import { useArtemisEphemeris } from '../hooks/useArtemisEphemeris'
 
 const MOON_ORBIT_RADIUS = 3.8
-const ARTEMIS2_EPHEMERIS_URL: string | null = null
+const ARTEMIS2_EPHEMERIS_URL: string | null =
+  '/ephemeris/Artemis_II_OEM_2026_04_02_to_EI_v3.asc'
 // Moon starts so that at ~day 5.5 (t ~ 0.55) it sits to the right for flyby.
 const FLYBY_TARGET_ANGLE = 0
 const MOON_TRAVEL_AT_FLYBY = (5.5 / 27.3) * Math.PI * 2
