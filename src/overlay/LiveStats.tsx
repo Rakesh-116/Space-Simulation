@@ -7,11 +7,11 @@ const LiveStats = () => {
       </div>
       <div className="stats-row">
         <span className="stats-label">LUNAR SPHERE OF INFLUENCE</span>
-        <span className="stats-value">325,000 km</span>
+        <span className="stats-value">66,100 km</span>
       </div>
       <div className="stats-row">
         <span className="stats-label">ARTEMIS 2 HEO</span>
-        <span className="stats-value">95,000 km</span>
+        <span className="stats-value">71,656 km</span>
       </div>
       <div className="stats-row">
         <span className="stats-label">GEOSTATIONARY ORBIT</span>
